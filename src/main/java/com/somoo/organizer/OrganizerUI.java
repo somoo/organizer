@@ -32,7 +32,7 @@ public class OrganizerUI extends UI {
         Button button = new Button("Click Me");
         button.addClickListener( e -> {
             layout.addComponent(new Label("Thanks " + name.getValue() 
-                    + ", it works!"));
+                    + ", it works great!"));
         });
         
         layout.addComponents(name, button);
