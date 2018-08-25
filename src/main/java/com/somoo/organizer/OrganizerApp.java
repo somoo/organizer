@@ -17,7 +17,7 @@ import com.vaadin.ui.UI;
  * overridden to add component to the user interface and initialize non-component functionality.
  */
 @Theme("organizertheme")
-public class OrganizerUI extends UI {
+public class OrganizerApp extends UI {
 
 	/**
 	 * 
@@ -27,14 +27,14 @@ public class OrganizerUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
     	
-
+    	
 
     	setContent(loginUi);
         
     }
 
     @WebServlet(urlPatterns = "/*", name = "OrganizerUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = OrganizerUI.class, productionMode = false)
+    @VaadinServletConfiguration(ui = OrganizerApp.class, productionMode = false)
     public static class OrganizerUIServlet extends VaadinServlet {
 
 		/**
