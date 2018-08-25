@@ -29,9 +29,12 @@
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
 
+$v-background-color: hsl(200, 50%, 50%);
+$v-app-background-color: $v-background-color;
+
 @import "../valo/valo.scss";
 
-@mixin organizertheme {
+.organizertheme {
   @include valo;
 
   // Insert your own theme rules here
