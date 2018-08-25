@@ -1,12 +1,15 @@
 package com.somoo.organizer.login.loginUi;
 
 
+import com.somoo.organizer.login.loginController.AbstractLoginController;
+import com.somoo.organizer.login.loginController.LoginControllerImpl;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
@@ -20,6 +23,7 @@ public class LoginUI extends HorizontalLayout {
 	private PasswordField tfPassword;
 	private Button btnLogin;
 	
+	private AbstractLoginController loginController;; 
 	
 
 	public LoginUI() {
@@ -36,9 +40,12 @@ public class LoginUI extends HorizontalLayout {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				Notification.show("This is the caption",
-						"This is the description",
-						Notification.Type.HUMANIZED_MESSAGE);
+				loginController = new LoginControllerImpl();
+				if(loginController.authenticate(tfUsername.getValue(),tfPassword.getValue())){
+					
+					Notification.show("Correct","welcome",Type.HUMANIZED_MESSAGE);
+				};
+				
 			}
 		});
 		
