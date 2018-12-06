@@ -1,9 +1,10 @@
 package com.somoo.organizer.login.loginUi;
 
 
-import com.somoo.organizer.login.loginController.AbstractLoginController;
-import com.somoo.organizer.login.loginController.LoginControllerImpl;
+
+import com.somoo.organizer.login.loginController.LoginController;
 import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
@@ -18,12 +19,16 @@ import com.vaadin.ui.Button.ClickListener;
 public class LoginUI extends HorizontalLayout {
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private FormLayout loginForm;
 	private TextField tfUsername;
 	private PasswordField tfPassword;
 	private Button btnLogin;
 	
-	private AbstractLoginController loginController;; 
+	private LoginController loginController;; 
 	
 
 	public LoginUI() {
@@ -38,12 +43,24 @@ public class LoginUI extends HorizontalLayout {
 		
 		btnLogin.addClickListener(new ClickListener() {
 			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
-				loginController = new LoginControllerImpl();
+				loginController = new LoginController();
 				if(loginController.authenticate(tfUsername.getValue(),tfPassword.getValue())){
 					
-					Notification.show("Correct","welcome",Type.HUMANIZED_MESSAGE);
+					Notification suc = new Notification("lala",Type.HUMANIZED_MESSAGE);
+					suc.setPosition(Position.TOP_RIGHT );
+					Notification.show("CorrectAAA","welcome",Type.HUMANIZED_MESSAGE);
+					suc.setDelayMsec(3000);
+					
+					
+				}else{
+					Notification.show("Incorrect","please try again",Type.HUMANIZED_MESSAGE);
 				};
 				
 			}
