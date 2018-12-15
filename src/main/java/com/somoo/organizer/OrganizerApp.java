@@ -2,7 +2,7 @@ package com.somoo.organizer;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.somoo.organizer.login.loginUi.LoginUI;
+import com.somoo.organizer.login.ui.LoginUI;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
