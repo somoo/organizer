@@ -1,42 +1,34 @@
-package com.somoo.organizer.login.ui;
+package com.somoo.organizer.ui.login;
 
 
 
-import com.somoo.organizer.login.controller.LoginController;
+
+import com.google.inject.Inject;
+import com.somoo.organizer.service.impl.UserRepositoryServiceImpl;
+import com.somoo.organizer.ui.login.controller.LoginController;
 import com.vaadin.event.ShortcutAction.KeyCode;
-import com.vaadin.shared.Position;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
-import com.vaadin.ui.PasswordField;
-import com.vaadin.ui.TextField;
+import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 public class LoginUI extends HorizontalLayout {
 	
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private FormLayout loginForm;
 	private TextField tfUsername;
 	private PasswordField tfPassword;
 	private Button btnLogin;
-	
-	private LoginController loginController;; 
-	
 
-	public LoginUI() {
-		
+	private LoginController loginController;
+
+	@Inject
+	public LoginUI(UserRepositoryServiceImpl userRepositoryServiceImpl) {
+		this.loginController = new LoginController(userRepositoryServiceImpl);
 		initComponent();
 		initLayout();
-		initListener();
 		initComponentTree();
+		initListener();
 
 	}
 	private void initListener() {
@@ -50,23 +42,19 @@ public class LoginUI extends HorizontalLayout {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				loginController = new LoginController();
-				if(loginController.authenticate(tfUsername.getValue(),tfPassword.getValue())){
-					
-					Notification suc = new Notification("lala",Type.HUMANIZED_MESSAGE);
-					suc.setPosition(Position.TOP_RIGHT );
-					Notification.show("CorrectAAA","welcome",Type.HUMANIZED_MESSAGE);
-					suc.setDelayMsec(3000);
-					
-					
-				}else{
-					Notification.show("Incorrect","please try again",Type.HUMANIZED_MESSAGE);
-				};
-				
+
+				if (loginController.authenticate(tfUsername.getValue(), tfPassword.getValue())) {
+					letUserIn();
+				} else {
+					keepUserOut();
+				}
+
 			}
 		});
 		
 	}
+
+
 	private void initComponent() {
 
 		loginForm = new FormLayout();
@@ -105,7 +93,13 @@ public class LoginUI extends HorizontalLayout {
 
 	}
 
+	private void letUserIn(){
+		Notification.show("Yeah you are in!", Notification.Type.HUMANIZED_MESSAGE);
+	};
 
+	private void keepUserOut(){
+		Notification.show("Nope you are out!", Notification.Type.ERROR_MESSAGE);
+	};
 
 
 }

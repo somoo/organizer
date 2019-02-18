@@ -1,13 +1,16 @@
 package com.somoo.organizer;
 
-import javax.servlet.annotation.WebServlet;
-
-import com.somoo.organizer.login.ui.LoginUI;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.somoo.organizer.injection.InjectionModule;
+import com.somoo.organizer.ui.login.LoginUI;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
+
+import javax.servlet.annotation.WebServlet;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -23,11 +26,11 @@ public class OrganizerApp extends UI {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final LoginUI loginUi  = new LoginUI();
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-    	
-    	
+		Injector injector = Guice.createInjector(new InjectionModule());
+		LoginUI loginUi = injector.getInstance(LoginUI.class);
+
 
     	setContent(loginUi);
         
