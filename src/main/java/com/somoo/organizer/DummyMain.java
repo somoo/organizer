@@ -14,7 +14,7 @@ public class DummyMain {
 
     public static void main(String[] args) {
 
-        //createUser();
+      //  createUser();
         User userOfDb = readUser("admin", "root");
         System.out.println(userOfDb);
     }

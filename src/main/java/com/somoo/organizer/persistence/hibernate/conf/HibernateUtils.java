@@ -1,13 +1,12 @@
 package com.somoo.organizer.persistence.hibernate.conf;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-/**
- * @author imssbora
- */
+
 public class HibernateUtils {
     private static StandardServiceRegistry registry;
     private static SessionFactory sessionFactory;
@@ -29,11 +28,13 @@ public class HibernateUtils {
                 // Create SessionFactory
                 sessionFactory = metadata.getSessionFactoryBuilder().build();
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            }catch(HibernateException exception){
+                System.out.println("Problem creating session factory");
+                exception.printStackTrace();
                 if (registry != null) {
                     StandardServiceRegistryBuilder.destroy(registry);
                 }
+
             }
         }
         return sessionFactory;
